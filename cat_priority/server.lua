@@ -20,7 +20,7 @@ CreateThread(function()
                 name = 'SHERIFF'
                 input = 'safe'
                 cooldownActive = false
-                cooldownTimer = 15 * 60 -- Reset default cooldown to 15 minutes in seconds
+                cooldownTimer = 15 * 60
                 robberiesDisabled = false
             end
             TriggerClientEvent('priority2:updateNUI', -1, Status, { status = Status, name = name, input = input, cooldown = cooldownTimer })
@@ -37,21 +37,20 @@ local function getName(src)
     return GetPlayerName(src)
 end
 
-local webhookUrl = "https://discord.com/api/webhooks/1312085557685391410/xuZfMq3xP3cF7PLK3ildxohNK-cPOBmGUOEWbei5NYQeqaY8x03qVQ8VDhzCD6KSSDzX"
+local webhookUrl = "" -- webhook (usage)
 
--- Function to get the current time and date in a readable format
 function getCurrentTime()
-    local time = os.date("!%Y-%m-%d %H:%M:%S")  -- Format: YYYY-MM-DD HH:MM:SS (UTC)
+    local time = os.date("!%Y-%m-%d %H:%M:%S") 
     return time
 end
 
--- Function to send log messages to Discord with embed
+
 function sendToDiscord(message, title)
     local currentTime = getCurrentTime()
     local embed = {
         {
-            ["color"] = 3447003,  -- Blue color for the embed
-            ["title"] = "CD_PRIORITY",
+            ["color"] = 3447003, 
+            ["title"] = "CAT DEVELOPMENT",
             ["description"] = message,
             ["fields"] = {
                 {["name"] = "Time", ["value"] = currentTime, ["inline"] = true}
@@ -62,7 +61,7 @@ function sendToDiscord(message, title)
         }
     }
     PerformHttpRequest(webhookUrl, function(statusCode, response, headers)
-        -- You can add more logging here if needed
+
     end, 'POST', json.encode({embeds = embed}), {['Content-Type'] = 'application/json'})
 end
 
@@ -72,11 +71,10 @@ AddEventHandler('priority2:PriorityCD', function(cooldownDuration)
     name = getName(source)
     input = 'cooldown'
     
-    -- Set the cooldown duration in seconds, defaulting to 15 minutes if no valid duration is provided
     if cooldownDuration and type(cooldownDuration) == "number" then
-        cooldownTimer = cooldownDuration * 60 -- Convert minutes to seconds
+        cooldownTimer = cooldownDuration * 60
     else
-        cooldownTimer = 15 * 60 -- Default cooldown duration (15 minutes in seconds)
+        cooldownTimer = 15 * 60 
     end
 
     cooldownActive = true
@@ -88,7 +86,6 @@ AddEventHandler('priority2:PriorityCD', function(cooldownDuration)
         cooldown = cooldownTimer
     })
 
-    -- Send log to Discord with embed
     sendToDiscord(string.format("Priority Event: %s | Status: %s | Name: %s | Cooldown: %d seconds", 'PriorityCD', Status, name, cooldownTimer), "Priority Event: PriorityCD")
 end)
 
@@ -104,7 +101,6 @@ AddEventHandler('priority2:PriorityIP', function(priorityName)
     
     TriggerClientEvent('priority2:updateNUI', -1, Status, { status = Status, name = name, input = input })
 
-    -- Send log to Discord with embed
     sendToDiscord(string.format("Priority Event: %s | Status: %s | Name: %s", 'PriorityIP', Status, name), "Priority Event: PriorityIP")
 end)
 
@@ -118,7 +114,6 @@ AddEventHandler('priority2:PriorityHOLD', function()
     robberiesDisabled = true
     TriggerClientEvent('priority2:updateNUI', -1, Status, { status = Status, name = name, input = input })
 
-    -- Send log to Discord with embed
     sendToDiscord(string.format("Priority Event: %s | Status: %s | Name: %s", 'PriorityHOLD', Status, name), "Priority Event: PriorityHOLD")
 end)
 
@@ -132,7 +127,6 @@ AddEventHandler('priority2:PrioritySAFE', function()
     robberiesDisabled = false
     TriggerClientEvent('priority2:updateNUI', -1, Status, { status = Status, name = name, input = input })
 
-    -- Send log to Discord with embed
     sendToDiscord(string.format("Priority Event: %s | Status: %s | Name: %s", 'PrioritySAFE', Status, name), "Priority Event: PrioritySAFE")
 end)
 
