@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+* {
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.prioBody {
+    position: absolute;
+    top: 90%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    background: rgba(160, 120, 224, 0);
+    width: 19.65rem;
+    height: 5.8rem;
+    /* border-radius: 5px; */
+    /* border: 1px solid #00000093; */
+}
+
+
+@media screen and (max-width: 600px) {
+    .prioBody {
+        width: 16rem;  /* Adjust width for mobile */
+        height: 5rem;  /* Adjust height for mobile */
+    }
+}
+
+
+.header {
+    margin-top: -0.5; /* Removed negative margin */
+    font-size: 14px; /* Decreased font size */
+    text-align: center;
+}
+
+.header p {
+    margin: 0; /* Reset margin */
+}
+
+.header span {
+    color: rgb(0, 255, 255); /* Gold-like color for emphasis */
+}
+
+.status {
+    margin-top: -0.5rem; /* Adjusted margin for better spacing */
+    text-shadow: 2px 2px 5px rgba(189, 48, 48, 0.8); /* Softer shadow */
+    font-size: 14px; /* Decreased font size */
+    text-align: center;
+}
